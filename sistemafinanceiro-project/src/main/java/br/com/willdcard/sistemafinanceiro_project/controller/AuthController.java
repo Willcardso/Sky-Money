@@ -9,7 +9,7 @@ import br.com.willdcard.sistemafinanceiro_project.dto.LoginRequest;
 import br.com.willdcard.sistemafinanceiro_project.dto.TokenResponse;
 import br.com.willdcard.sistemafinanceiro_project.model.User;
 import br.com.willdcard.sistemafinanceiro_project.repository.UserRepository;
-
+import br.com.willdcard.sistemafinanceiro_project.security.JwtUtil;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*")
@@ -34,9 +34,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        // Token temporário (JWT vem depois)
-        String token = "token-temporario";
-
+        String token = JwtUtil.generateToken(user.getEmail());
         return ResponseEntity.ok(new TokenResponse(token));
     }
     @PostMapping("/register")
