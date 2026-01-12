@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../AUTOMAÇÃO PY"
+		},
+		{
+			"path": "../../portal crm"
+		},
+		{
+			"path": "../../treinamento de mira"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "sistema financeiro"
+	}
+}
