@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Despesas</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="top-bar">
+        <h2>Minhas Despesas</h2>
+        <button onclick="logout()">Logout</button>
+    </header>
+
+    <section>
+        <h3>Dashboard</h3>
+
+        <div class="dashboard">
+            <div class="card">
+                <h4>Total Gasto</h4>
+                <p id="totalExpenses">R$ 0,00</p>
+            </div>
+
+            <div class="card">
+                <h4>Quantidade</h4>
+                <p id="totalCount">0</p>
+            </div>
+        </div>
+
+        <h3>Gastos por Categoria</h3>
+        <tbody id="expensesTable"></tbody>
+        <div id="categoryDashboard" class="category-dashboard"></div>
+
+    </section>
+
+    <p id="message"></p>
+
+    <section>
+        <h3>Nova Despesa</h3>
+        <form id="expenseForm">
+            <input type="text" id="description" placeholder="Descrição" required>
+            <input type="number" id="amount" placeholder="Valor" step="0.01" required>
+            <select id="categorySelect" required>
+                <option value="">Selecione uma categoria</option>
+            </select>
+            <input type="date" id="date" required>
+            <button type="submit">Salvar</button>
+        </form>
+    </section>
+
+    <section>
+        <h3>Lista de Despesas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Categoria</th>
+                    <th>Data</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="expensesTable"></tbody>
+        </table>
+    </section>
+
+    <script src="js/expenses.js"></script>
+</body>
+
+</html>
