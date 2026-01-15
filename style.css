@@ -170,3 +170,79 @@ td button:hover {
     font-size: 18px;
     font-weight: bold;
 }
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: #5b2bbf;
+    color: white;
+    width: 220px;
+    transition: width 0.3s;
+    padding: 15px;
+}
+
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.sidebar nav a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar.collapsed nav a {
+    text-align: center;
+    font-size: 0;
+}
+
+.sidebar.collapsed nav a::before {
+    font-size: 18px;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+    background: #f4f4f9;
+}
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+.nav-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    background: rgba(255, 255, 255, 0.2);
+}

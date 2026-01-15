@@ -14,6 +14,12 @@ function formatDate(date) {
     return new Date(date).toLocaleDateString("pt-BR");
 }
 
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("collapsed");
+}
+
+// ================== DESPESAS ==================
+
 async function loadExpenses() {
     try {
         const response = await fetch(`${API_URL}/expenses`, {
@@ -81,14 +87,19 @@ async function loadExpenses() {
 
 document.getElementById("expenseForm").addEventListener("submit", async (e) => {
     e.preventDefault();
+    const categoryId = Number(
+        document.getElementById("categorySelect").value
+    );
+
 
     const expense = {
-        description: document.getElementById("description").value,
-        amount: parseFloat(document.getElementById("amount").value),
-        categoryId: document.getElementById("categorySelect").value,
-        date: document.getElementById("date").value,
-        type: "EXPENSE"
-    };
+    description: document.getElementById("description").value,
+    amount: parseFloat(document.getElementById("amount").value),
+    categoryId: categoryId, // agora é number
+    date: document.getElementById("date").value,
+    type: "EXPENSE"
+};
+
 
     try {
         const response = await fetch(`${API_URL}/expenses`, {
@@ -139,6 +150,8 @@ async function deleteExpense(id) {
     }
 }
 
+// ================== CATEGORIAS ==================
+
 async function loadCategories() {
     try {
         const response = await fetch(`${API_URL}/categories`, {
@@ -149,14 +162,7 @@ async function loadCategories() {
             throw new Error("Erro ao buscar categorias");
         }
 
-        const text = await response.text();
-
-        if (!text) {
-            console.warn("Nenhuma categoria retornada");
-            return;
-        }
-
-        const categories = JSON.parse(text);
+        const categories = await response.json();
 
         const select = document.getElementById("categorySelect");
         select.innerHTML = `<option value="">Selecione uma categoria</option>`;
@@ -173,8 +179,63 @@ async function loadCategories() {
     }
 }
 
+document.getElementById("categoryForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("categoryName").value;
+
+    const response = await fetch(`${API_URL}/categories`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ name })
+    });
+
+    if (!response.ok) {
+        document.getElementById("categoryMessage").innerText =
+            "Erro ao criar categoria";
+        return;
+    }
+
+    document.getElementById("categoryMessage").innerText =
+        "Categoria criada com sucesso!";
+
+    document.getElementById("categoryForm").reset();
+    loadCategories();
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     loadCategories();
     loadExpenses();
 
 });
+
+async function loadBalance() {
+    const response = await fetch("http://localhost:8000/expenses/balance", {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    const balance = await response.json();
+    document.getElementById("balance").innerText =
+        `Saldo: R$ ${balance.toFixed(2)}`;
+}
+
+function showPage(pageId, btn) {
+    // Esconde todas as páginas
+    document.querySelectorAll(".page").forEach(p =>
+        p.classList.remove("active")
+    );
+
+    // Remove ativo dos botões
+    document.querySelectorAll(".nav-btn").forEach(b =>
+        b.classList.remove("active")
+    );
+
+    // Mostra a página selecionada
+    document.getElementById(pageId).classList.add("active");
+
+}

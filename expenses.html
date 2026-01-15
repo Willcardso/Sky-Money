@@ -3,70 +3,113 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Despesas</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Sistema Financeiro</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header class="top-bar">
-        <h2>Minhas Despesas</h2>
-        <button onclick="logout()">Logout</button>
-    </header>
+    <div class="layout">
 
-    <section>
-        <h3>Dashboard</h3>
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar">
+            <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-        <div class="dashboard">
-            <div class="card">
-                <h4>Total Gasto</h4>
-                <p id="totalExpenses">R$ 0,00</p>
-            </div>
+            <nav>
+                <button class="nav-btn active" onclick="showPage('dashboard', event)">
+                    Dashboard
+                </button>
 
-            <div class="card">
-                <h4>Quantidade</h4>
-                <p id="totalCount">0</p>
-            </div>
-        </div>
+                <button class="nav-btn" onclick="showPage('expenses', event)">
+                    Despesas
+                </button>
 
-        <h3>Gastos por Categoria</h3>
-        <tbody id="expensesTable"></tbody>
-        <div id="categoryDashboard" class="category-dashboard"></div>
+                <button class="nav-btn" onclick="showPage('settings', event)">
+                    Configurações
+                </button>
+                <a href="#" onclick="logout()">Logout</a>
+            </nav>
+        </aside>
 
-    </section>
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="content">
 
-    <p id="message"></p>
+            <!-- TOPO -->
+            <header class="top-bar">
+                <h2>Minhas Despesas</h2>
+            </header>
 
-    <section>
-        <h3>Nova Despesa</h3>
-        <form id="expenseForm">
-            <input type="text" id="description" placeholder="Descrição" required>
-            <input type="number" id="amount" placeholder="Valor" step="0.01" required>
-            <select id="categorySelect" required>
-                <option value="">Selecione uma categoria</option>
-            </select>
-            <input type="date" id="date" required>
-            <button type="submit">Salvar</button>
-        </form>
-    </section>
+            <!-- DASHBOARD -->
+            <section id="dashboard" class="page active">
+                <h3>Dashboard</h3>
 
-    <section>
-        <h3>Lista de Despesas</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th>Categoria</th>
-                    <th>Data</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="expensesTable"></tbody>
-        </table>
-    </section>
+                <div class="dashboard">
+                    <div class="card">
+                        <h4>Total Gasto</h4>
+                        <p id="totalExpenses">R$ 0,00</p>
+                    </div>
 
-    <script src="js/expenses.js"></script>
+                    <div class="card">
+                        <h4>Quantidade</h4>
+                        <p id="totalCount">0</p>
+                    </div>
+                </div>
+
+                <h3>Gastos por Categoria</h3>
+                <div id="categoryDashboard" class="category-dashboard"></div>
+            </section>
+
+            <!-- DESPESAS -->
+            <section id="expenses" class="page">
+                <h3>Nova Despesa</h3>
+
+                <form id="expenseForm">
+                    <input type="text" id="description" placeholder="Descrição" required>
+                    <input type="number" id="amount" placeholder="Valor" step="0.01" required>
+
+                    <select id="categorySelect" required>
+                        <option value="">Selecione uma categoria</option>
+                    </select>
+
+                    <input type="date" id="date" required>
+                    <button type="submit">Salvar</button>
+                </form>
+
+                <p id="message"></p>
+
+                <h3>Lista de Despesas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Categoria</th>
+                            <th>Data</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expensesTable"></tbody>
+                </table>
+            </section>
+
+            <!-- CONFIGURAÇÕES -->
+            <section id="settings" class="page">
+                <h3>Configurações</h3>
+
+                <h4>Nova Categoria</h4>
+                <form id="categoryForm">
+                    <input type="text" id="categoryName" placeholder="Nome da categoria" required>
+                    <button type="submit">Adicionar Categoria</button>
+                </form>
+
+                <p id="categoryMessage"></p>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="expenses.js"></script>
+
 </body>
 
 </html>
