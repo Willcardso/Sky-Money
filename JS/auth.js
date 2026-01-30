@@ -15,7 +15,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     if (response.ok) {
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        window.location.href = "expenses.html";
+        window.location.href = "../HTML/expenses.html";
     } else {
         alert("Login inválido");
     }
